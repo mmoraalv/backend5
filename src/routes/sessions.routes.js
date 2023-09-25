@@ -14,12 +14,12 @@ sessionRouter.post('/', async (req,res) => {
     req.session.password = password 
     try {
         if(req.session.login)
-/*             res.status(200).send({resultado: 'Login ya existente'}) */
+
             res.redirect(302, '/products')  
         const user = await userModel.findOne({email:email})
         if(user) {
             if(user.password === password) { 
-/*                 res.status(200).send({resultado: 'Login valido', message: user}) */
+
                 res.redirect(302, '/products')
             } else {
                 res.status(401).send({resultado: 'Unauthorized', message: user})
