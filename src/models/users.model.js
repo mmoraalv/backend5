@@ -1,22 +1,27 @@
-import { Schema, model } from "mongoose";
+import {Schema, model} from "mongoose";
+
+//definir schemas
+const stringRequired = {
+    type: String,
+    required: true
+}
 
 const userSchema = new Schema({
-    name: {
-        type: String,
-        required: true
-    },
-    username: {
-        type: String,
-        required: true
-    },
+    first_name: stringRequired,
+    last_name: stringRequired,
     email: {
         type: String,
+        unique: true,
         required: true,
-        index: true,
-        unique: true
+        index: true
     },
-    password: {
+    password: stringRequired,
+    rol: {
         type: String,
+        default: 'user'
+    },
+    age: {
+        type: Number,
         required: true
     }
 })
