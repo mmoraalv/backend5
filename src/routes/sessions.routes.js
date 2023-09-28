@@ -24,7 +24,7 @@ sessionRouter.post('/login', async (req,res) => {
         if(user) {
             if(user.password == password) {
                 req.session.login = true;
-                res.redirect(`/static/home?info=${user.first_name}`);
+                res.redirect(`/static/product?info=${user.first_name}`);
                 return;
             } else {
                 res.send("login", { message: 'Password Incorrecto'});

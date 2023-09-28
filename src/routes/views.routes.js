@@ -9,12 +9,12 @@ routerHandlebars.get ("/realtimeproducts", async (req, res) => {
     });
 });
 
-routerHandlebars.get ("/home", async (req, res) => {
+routerHandlebars.get ("/products", async (req, res) => {
     const products = await productModel.find().lean();
     const info = req.query.info;
-    res.render("home", {
-        rutaCSS: "home",
-        rutaJS: "home",
+    res.render("products", {
+        rutaCSS: "products",
+        rutaJS: "products",
         products,
         info,
     });
