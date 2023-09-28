@@ -11,15 +11,21 @@ import cartRouter from './routes/carts.routes.js'
 //import messageRouter from './routes/messages.routes.js'
 import sessionRouter from './routes/sessions.routes.js'
 import userRouter from './routes/users.routes.js'
+import routerHandlebars from './routes/views.routes.js'
 import cookieParser from 'cookie-parser'
 import session from 'express-session'
 import MongoStore from 'connect-mongo'
 import mongoose from 'mongoose';
 //import cartModel from './models/carts.models.js';
 
-
 const PORT = 8080;
 const app = express();
+
+//Conexión con bd Mongo
+mongoose.connect('mongodb+srv://mmoraalvz2:mma$223$@cluster0.a8nxh9t.mongodb.net/?retryWrites=true&w=majority')
+    .then(() => console.log("DB conectada"))
+    //await cartModel.create({})
+    .catch((error) => console.log("Error en conexion a MongoDB Atlas: ", error))
 
 //Server
 const server = app.listen(PORT,()=>{
@@ -27,7 +33,6 @@ const server = app.listen(PORT,()=>{
 })
 
 //const io = new Server(server)
-
 
 //Middlewares
 app.use(express.json());
@@ -68,11 +73,12 @@ app.post('/products', (req,res) => {
 })
 
 //Rutas
-app.use('/', sessionRouter)
-app.use('/user', userRouter)
-app.use(express.static(path.join(__dirname, '/public')))
-app.use('/products', productRouter)
-app.use('/carts', cartRouter)
+app.use('/static', express.static(path.join(__dirname, '/public')));
+app.use('/static', routerHandlebars);
+app.use('/api/products', productRouter);
+app.use('/api/carts', cartRouter);
+app.use('/api/sessions', sessionRouter);
+app.use('/api/users', userRouter);
 
 
 //Cookies
